@@ -1,66 +1,38 @@
-# Phase 2 Project
-
-Another module down--you're almost half way there!
-
-![awesome](https://raw.githubusercontent.com/learn-co-curriculum/dsc-phase-2-project-campus/master/halfway-there.gif)
-
-All that remains in Phase 2 is to put our newfound data science skills to use with a large project! This project should take 20 to 30 hours to complete.
-
 ## Project Overview
 
-For this project, you will use regression modeling to analyze house sales in a northwestern county.
+For this project, we will use OLS regression modeling to analyze house sales in King's County, WA, and focus on following the standard machine learning workflow, OSEMIN.
 
 ### The Data
 
-This project uses the King County House Sales dataset, which can be found in  `kc_house_data.csv` in the data folder in this repo. The description of the column names can be found in `column_names.md` in the same folder. As with most real world data sets, the column names are not perfectly described, so you'll have to do some research or use your best judgment if you have questions about what the data means.
-
-It is up to you to decide what data from this dataset to use and how to use it. If you are feeling overwhelmed or behind, we recommend you ignore some or all of the following features:
-
-* date
-* view
-* sqft_above
-* sqft_basement
-* yr_renovated
-* zipcode
-* lat
-* long
-* sqft_living15
-* sqft_lot15
+This project uses the King County House Sales dataset, which can be found in  `kc_house_data.csv` in the data folder in this repo. The description of the column names can be found in `column_names.md` in the same folder.
 
 ### Business Problem
 
-It is up to you to define a stakeholder and business problem appropriate to this dataset.
+Abodes by Abhineet, aka Ab<sup>2</sup>, is a company that buys, renovates and resells homes. Ab<sup>2</sup> has seen an exponential take off over the past year and no longer has the staff to sort through all of the home listings in their area of operations - King's County in Seattle, Washington. With their extra capital they have decided to bring on a data scientist whose first responsibility is to create a tool that will identify sale listings worth investigating. Ab<sup>2</sup> has access to a large dataset of homes sold in the county in 2014 and 2015, and will provide it to the analyst.
 
-If you are struggling to define a stakeholder, we recommend you complete a project for a real estate agency that helps homeowners buy and/or sell homes. A business problem you could focus on for this stakeholder is the need to provide advice to homeowners about how home renovations might increase the estimated value of their homes, and by what amount.
+## Results
 
-## Deliverables
+In the end, we produced a Multiple Linear Regression model with an adjusted R<sup>2</sup> = .88 and a Prob(F-stat) < .001. Thus, we can be fairly confident in the ability of our model to produce solid home pricing estimates. With confidence in our model, we built an estimator that takes in the information you may easily find in a home for sale listing, converts it to have all the attributes needed to be input into our model predictor, and returns an approximate price for any given home. Note that this estimator is very specific to King's County, WA. Based on our model, we can make some general statements. Keeping all other predictors the same, for a unit increase in:
 
-There are three deliverables for this project:
+1. bedrooms, the price of the home will decrease
+2. bathrooms, the price of the home will increase
+3. sqft_lot, the price will increase slightly
+4. sqft_above, the price will increase strongly
+5. sqft_basement, the price will increase
+6. yr_built, for each year the home is newer the price decreases slightly
+7. latitude, for each tenth of a degree northward the price will increase
+8. longitude, for each tenth of a degree westward the price will increase
+9. sqft_living15, for each extra 100 sqft on average the 15 homes nearby have the price of your home will increase
+10. sqft_lot15, for each sqft of land your 15 nearest neighbors have on average, your home price decreases, but only very slightly
 
-* A **GitHub repository**
-* A **Jupyter Notebook**
-* A **non-technical presentation**
+For the categorical columns, we can say:
 
-Review the "Project Submission & Review" page in the "Milestones Instructions" topic for instructions on creating and submitting your deliverables. Refer to the rubric associated with this assignment for specifications describing high-quality deliverables.
+1. There is less of a unit increase in price for more than one floor when compared to just having a floor at all (silly to say, but it's just important that the house exists).
+2. The price of a home increases radically for a home that has waterfront property.
+3. Relative to the most common grade of 7, houses graded less sell for less and houses graded for more sell for more in a way that is relative to their grade.
+4. Houses with a view experience positive increases in unit increase in price per increase in view, scaling as the rating of the view increases.
+5. Homes in some zipcodes sell for more or less relative to the zipcode with the most houses in it. We would have to do further investigation on the location of these zipcodes to make sense of this information.
 
-### Key Points
+## Conclusions
 
-* **Your deliverables should explicitly address each step of the data science process.** Refer to [the Data Science Process lesson](https://github.com/learn-co-curriculum/dsc-data-science-processes) from Topic 19 for more information about process models you can use.
-
-* **Your Jupyter Notebook should demonstrate an iterative approach to modeling.** This means that you begin with a basic model, evaluate it, and then provide justification for and proceed to a new model. After you finish refining your models, you should provide 1-3 paragraphs discussing your final model - this should include interpreting at least 3 important parameter estimates or statistics.
-
-* **Based on the results of your models, your notebook and presentation should discuss at least two features that have strong relationships with housing prices.**
-
-## Getting Started
-
-Start on this project by forking and cloning [this project repository](https://github.com/learn-co-curriculum/dsc-phase-2-project) to get a local copy of the dataset.
-
-We recommend structuring your project repository similar to the structure in [the Phase 1 Project Template](https://github.com/learn-co-curriculum/dsc-project-template). You can do this either by creating a new fork of that repository to work in or by building a new repository from scratch that mimics that structure.
-
-## Project Submission and Review
-
-Review the "Project Submission & Review" page in the "Milestones Instructions" topic to learn how to submit your project and how it will be reviewed. Your project must pass review for you to progress to the next Phase.
-
-## Summary
-
-This project will give you a valuable opportunity to develop your data science skills using real-world data. The end-of-phase projects are a critical part of the program because they give you a chance to bring together all the skills you've learned, apply them to realistic projects for a business stakeholder, practice communication skills, and get feedback to help you improve. You've got this!
+Based on our results, we can assert that the most important factors in determining our housing price are: that is has bedrooms, but only as many as necessary so that they don't take up additional living space; That it has as many bathrooms as is reasonable, such that people do not have to share; that the home is large and has a liveable basement, that the home is older and thus probably built closer to the city center; that your home is located as far west and as far north as possible, again because it places you closest to waterfront property and closest to the city center / industrial centers. The lot size does not matter so much, likely because expensive homes nearer the city have less lot space while lower priced homes further away have more lot space. 
